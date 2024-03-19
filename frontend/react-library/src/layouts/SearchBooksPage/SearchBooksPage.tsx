@@ -25,7 +25,11 @@ export const SearchBooksPage = () => {
       if (searchUrl === "") {
         url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
       } else {
-        url = baseUrl + searchUrl;
+        let searchWithPage = searchUrl.replace(
+          "<pageNumber>",
+          `${currentPage - 1}`
+        );
+        url = baseUrl + searchWithPage;
       }
 
       const response = await fetch(url);
@@ -82,16 +86,19 @@ export const SearchBooksPage = () => {
       And if nothing is typed into that textbox, then we set search to nothing.
       Else we set the new set search URL to the searched item with that search product. */
   const searchHandleChange = () => {
+    setCurrentPage(1);
     if (search === "") {
       setSearchUrl("");
     } else {
       setSearchUrl(
-        `/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`
+        `/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`
       );
     }
+    setCategorySelection("Book Category");
   };
 
-  const categoryFiled = (value: string) => {
+  const categoryField = (value: string) => {
+    setCurrentPage(1);
     if (
       value.toLowerCase() === "fe" ||
       value.toLowerCase() === "be" ||
@@ -100,11 +107,11 @@ export const SearchBooksPage = () => {
     ) {
       setCategorySelection(value);
       setSearchUrl(
-        `/search/findByCategory=${value}&page=0&size=${booksPerPage}`
+        `/search/findByCategory=${value}&page=<pageNumber>&size=${booksPerPage}`
       );
     } else {
       setCategorySelection("All");
-      setSearchUrl(`?page=0&size=${booksPerPage}`);
+      setSearchUrl(`?page=<pageNumber>&size=${booksPerPage}`);
     }
   };
 
@@ -154,27 +161,27 @@ export const SearchBooksPage = () => {
                   className="dropdown-menu"
                   aria-labelledby="dropdownMenuButton1"
                 >
-                  <li onClick={() => categoryFiled("All")}>
+                  <li onClick={() => categoryField("All")}>
                     <a className="dropdown-item" href="#">
                       All
                     </a>
                   </li>
-                  <li onClick={() => categoryFiled("FE")}>
+                  <li onClick={() => categoryField("FE")}>
                     <a className="dropdown-item" href="#">
                       Front End
                     </a>
                   </li>
-                  <li onClick={() => categoryFiled("BE")}>
+                  <li onClick={() => categoryField("BE")}>
                     <a className="dropdown-item" href="#">
                       Back End
                     </a>
                   </li>
-                  <li onClick={() => categoryFiled("Data")}>
+                  <li onClick={() => categoryField("Data")}>
                     <a className="dropdown-item" href="#">
                       Data
                     </a>
                   </li>
-                  <li onClick={() => categoryFiled("DevOps")}>
+                  <li onClick={() => categoryField("DevOps")}>
                     <a className="dropdown-item" href="#">
                       DevOps
                     </a>
