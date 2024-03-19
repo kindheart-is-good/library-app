@@ -107,7 +107,7 @@ export const SearchBooksPage = () => {
     ) {
       setCategorySelection(value);
       setSearchUrl(
-        `/search/findByCategory=${value}&page=<pageNumber>&size=${booksPerPage}`
+        `/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`
       );
     } else {
       setCategorySelection("All");
