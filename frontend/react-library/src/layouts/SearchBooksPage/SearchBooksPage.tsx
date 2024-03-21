@@ -103,7 +103,7 @@ export const SearchBooksPage = () => {
       value.toLowerCase() === "fe" ||
       value.toLowerCase() === "be" ||
       value.toLowerCase() === "data" ||
-      value.toLowerCase() === "devOps"
+      value.toLowerCase() === "devops"
     ) {
       setCategorySelection(value);
       setSearchUrl(
