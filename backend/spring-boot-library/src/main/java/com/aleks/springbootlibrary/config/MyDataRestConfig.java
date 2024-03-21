@@ -1,6 +1,7 @@
 package com.aleks.springbootlibrary.config;
 
 import com.aleks.springbootlibrary.entity.Book;
+import com.aleks.springbootlibrary.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -24,8 +25,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         /* And I also want to expose all the IDs for these classes.
         * So I going to be using the primary key for functionality on the frontend, so for know exactly what book I going to be using. */
         config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Review.class);
 
         disableHttpMethods(Book.class, config, theUnsupportedActions);
+        disableHttpMethods(Review.class, config, theUnsupportedActions);
 
         /* Configure CORS Mapping */
         cors.addMapping(config.getBasePath() + "/**")
